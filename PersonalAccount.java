@@ -6,4 +6,9 @@ public class PersonalAccount extends Account
         buyFeeMultiplier = 0;
         sellFeeMultiplier = 0.05;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + ", Type: PERSONAL";
+    }
 }

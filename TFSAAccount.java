@@ -5,4 +5,9 @@ public class TFSAAccount extends Account
         buyFeeMultiplier = 0.01;
         sellFeeMultiplier = 0.01;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + ", Type: TFSA";
+    }
 }

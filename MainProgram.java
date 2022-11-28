@@ -14,6 +14,7 @@ public class MainProgram
             loadStockData(tp, "data/GOOG.csv");
             loadStockData(tp, "data/TSLA.csv");
 
+            loadAccountData(tp, "data/accounts.csv");
         }
         catch (FileNotFoundException e)
         {
@@ -29,7 +30,8 @@ public class MainProgram
         }
     }
 
-    private static void loadStockData(TradingPlatform tp, String filePath) throws FileNotFoundException {
+    private static void loadStockData(TradingPlatform tp, String filePath) throws FileNotFoundException
+    {
         File file = new File(filePath);
         Scanner scanFile = new Scanner(file);
 
@@ -40,6 +42,19 @@ public class MainProgram
         {
             String[] dailyPriceInfo = scanFile.nextLine().split(",");
             tp.addStockData(ticker, Integer.parseInt(dailyPriceInfo[0]), Double.parseDouble(dailyPriceInfo[1]));
+        }
+    }
+
+    private static void loadAccountData(TradingPlatform tp, String filePath) throws FileNotFoundException
+    {
+        File file = new File(filePath);
+        Scanner scanFile = new Scanner(file);
+
+        while (scanFile.hasNextLine())
+        {
+            String[] accountDetails = scanFile.nextLine().split(",");
+            tp.registerAccount(accountDetails[0], accountDetails[1],
+                    Double.parseDouble(accountDetails[2]), accountDetails[3]);
         }
     }
 
