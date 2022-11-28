@@ -1,8 +1,8 @@
 public class PersonalAccount extends Account
 {
-    public PersonalAccount(String name, double balance)
+    public PersonalAccount(String firstName, String surname, double balance)
     {
-        super(name, balance);
+        super(firstName, surname, balance);
         buyFeeMultiplier = 0;
         sellFeeMultiplier = 0.05;
     }

@@ -3,7 +3,8 @@ import java.util.HashMap;
 
 public abstract class Account
 {
-    private String name;
+    private String firstName;
+    private String surname;
     private double balance;
     private LocalDate dateOpened;
     private HashMap<String, Integer> portfolio;
@@ -11,9 +12,10 @@ public abstract class Account
     protected double buyFeeMultiplier;
     protected double sellFeeMultiplier;
 
-    public Account(String name, double balance)
+    public Account(String firstName, String surname, double balance)
     {
-        this.name = name;
+        this.firstName = firstName;
+        this.surname = surname;
         this.balance = balance;
         portfolio = new HashMap<>();
         tradeHistory = new HashMap<>();
