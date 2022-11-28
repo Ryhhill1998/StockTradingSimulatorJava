@@ -1,20 +1,18 @@
-import java.time.LocalDate;
-
 public class Trade
 {
     private String stockTicker;
     private String type;
     private double price;
     private int quantity;
-    private LocalDate date;
+    private int day;
 
-    public Trade(String stockTicker, String type, double price, int quantity)
+    public Trade(String stockTicker, String type, double price, int quantity, int day)
     {
         this.stockTicker = stockTicker;
         this.type = type;
         this.price = price;
         this.quantity = quantity;
-        date = LocalDate.now();
+        this.day = day;
     }
 
     public String getStockTicker()
@@ -37,8 +35,8 @@ public class Trade
         return quantity;
     }
 
-    public LocalDate getDate()
+    public int getDay()
     {
-        return date;
+        return day;
     }
 }

@@ -1,4 +1,3 @@
-import java.time.LocalDate;
 import java.util.HashMap;
 
 public abstract class Account
@@ -6,23 +5,39 @@ public abstract class Account
     private String firstName;
     private String surname;
     private double balance;
-    private LocalDate dateOpened;
+    private int dayCreated;
     private HashMap<String, Integer> portfolio;
     private HashMap<Trade, Double> tradeHistory;
     protected double buyFeeMultiplier;
     protected double sellFeeMultiplier;
 
-    public Account(String firstName, String surname, double balance)
+    public Account(String firstName, String surname, double balance, int day)
     {
         this.firstName = firstName;
         this.surname = surname;
         this.balance = balance;
         portfolio = new HashMap<>();
         tradeHistory = new HashMap<>();
-        dateOpened = LocalDate.now();
+        dayCreated = day;
     }
 
-    private boolean buyShares(String stockTicker, double stockPrice, int quantity)
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public int getDayCreated() {
+        return dayCreated;
+    }
+
+    public boolean buyShares(String stockTicker, double stockPrice, int quantity, int day)
     {
         double transactionCost = (buyFeeMultiplier + 1) * stockPrice * quantity;
 
@@ -39,12 +54,12 @@ public abstract class Account
         portfolio.put(stockTicker, updatedShares);
 
         // add trade to trade history
-        addTradeToHistory(stockTicker, "MARKET_BUY", stockPrice, quantity);
+        addTradeToHistory(stockTicker, "MARKET_BUY", stockPrice, quantity, day);
 
         return true; // transaction successful
     }
 
-    private boolean sellShares(String stockTicker, double stockPrice, int quantity)
+    public boolean sellShares(String stockTicker, double stockPrice, int quantity, int day)
     {
         // check account has enough shares for this stock in its portfolio
         int sharesHeld = getSharesHeld(stockTicker);
@@ -64,7 +79,7 @@ public abstract class Account
         portfolio.put(stockTicker, updatedShares);
 
         // add trade to trade history
-        addTradeToHistory(stockTicker, "MARKET_SELL", stockPrice, quantity);
+        addTradeToHistory(stockTicker, "MARKET_SELL", stockPrice, quantity, day);
 
         return true; // transaction successful
     }
@@ -74,8 +89,15 @@ public abstract class Account
         return portfolio.getOrDefault(ticker, 0);
     }
 
-    private void addTradeToHistory(String ticker, String type, double price, int quantity)
+    private void addTradeToHistory(String ticker, String type, double price, int quantity, int day)
     {
-        tradeHistory.put(new Trade(ticker, type, price, quantity), balance);
+        tradeHistory.put(new Trade(ticker, type, price, quantity, day), balance);
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Name: " + firstName + " " + surname + ", Portfolio: " + portfolio.toString() +
+                ", Balance: " + balance;
     }
 }

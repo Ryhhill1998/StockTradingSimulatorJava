@@ -1,12 +1,14 @@
+import java.util.HashMap;
+
 public class Stock
 {
     private String ticker;
-    private double price;
+    private HashMap<Integer, Double> priceData;
 
-    public Stock(String ticker, double price)
+    public Stock(String ticker)
     {
         this.ticker = ticker;
-        this.price = price;
+        priceData = new HashMap<>();
     }
 
     public String getTicker()
@@ -14,13 +16,21 @@ public class Stock
         return ticker;
     }
 
-    public double getPrice()
+    public double getPrice(int day)
     {
-        return price;
+        return priceData.get(day);
     }
 
-    public void setPrice(double price)
+    public String getDetails(int day) {
+        return String.format("Ticker: %s, Price: $%.2f", ticker, getPrice(day));
+    }
+
+    public boolean addPriceData(int day, double price)
     {
-        this.price = price;
+        if (priceData.containsKey(day))
+            return false;
+
+        priceData.put(day, price);
+        return true;
     }
 }
